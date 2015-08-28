@@ -34,7 +34,7 @@ Shader "FX/RadialBlur"
             #include "UnityCG.cginc"
  
             uniform sampler2D _MainTex;
-			uniform half4 _MainTex_TexelSize;
+            uniform half4 _MainTex_TexelSize;
             uniform half _BlurStrength;
             uniform half _BlurWidth;
             uniform half _imgWidth;
@@ -45,23 +45,23 @@ Shader "FX/RadialBlur"
                 half4 color = tex2D(_MainTex, i.uv);
        
                 // some sample positions
-				half samples[10];
-				samples[0] = -0.08;
-				samples[1] = -0.05;
-				samples[2] = -0.03;
-				samples[3] = -0.02;
-				samples[4] = -0.01;
-				samples[5] =  0.01;
-				samples[6] =  0.02;
-				samples[7] =  0.03;
-				samples[8] =  0.05;
-				samples[9] =  0.08;
+                half samples[10];
+                samples[0] = -0.08;
+                samples[1] = -0.05;
+                samples[2] = -0.03;
+                samples[3] = -0.02;
+                samples[4] = -0.01;
+                samples[5] =  0.01;
+                samples[6] =  0.02;
+                samples[7] =  0.03;
+                samples[8] =  0.05;
+                samples[9] =  0.08;
 
 
-			//#if SHADER_API_D3D9
-			//	if (_MainTex_TexelSize.y < 0)
-			//	        texCoord.y = 1 - texCoord.y;
-			//#endif
+            //#if SHADER_API_D3D9
+            //	if (_MainTex_TexelSize.y < 0)
+            //	        texCoord.y = 1 - texCoord.y;
+            //#endif
        
                 //vector to the middle of the screen
                 half2 dir = 0.5 * half2(_imgHeight,_imgWidth) - i.uv;
@@ -83,11 +83,11 @@ Shader "FX/RadialBlur"
                 sum *= 1.0/11.0;
        
                 //weighten blur depending on distance to screen center
-				/*
+                /*
                 half t = dist * _BlurStrength / _imgWidth;
                 t = clamp(t, 0.0, 1.0);
-				*/		
-				half t = saturate(dist * _BlurStrength);
+                */		
+                half t = saturate(dist * _BlurStrength);
        
                 //blend original with blur
                 return lerp(color, sum, t);
